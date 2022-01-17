@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search
+{% endblock  %}
+
+{% block content %}
+<br>
+<h2 class="header">Search employees by hire date</h2>
+<br>
+<main class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <div class="form-group col-12">
+                <label for="inputEmpDate">Hire date from:</label>
+                {{ form.date_from(class="form-control form-control-lg") }}
+                        <div class="form-text EmpDate">Provide date range.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmpDate">Hire date to:</label>
+                {{ form.date_to(class="form-control form-control-lg") }}
+                        <div class="form-text EmpDate">Provide date range.</div>
+            </div>
+            <br>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+</main>
+
+{% endblock %}

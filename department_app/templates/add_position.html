@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add position
+{% endblock  %}
+
+{% block content %}
+<br>
+<h2 class="header">Add new position</h2>
+<br>
+<main class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <div class="form-group col-12">
+                <label for="inputPosName">Position:</label>
+                {{ form.name(class="form-control form-control-lg") }}
+                        <div class="form-text PosHelp">Provide a name for the new position.</div>
+            </div>
+            <br>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br/>
+    <ul>
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
+
+
+</main>
+{% endblock %}

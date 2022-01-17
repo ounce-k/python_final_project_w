@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add employee
+{% endblock  %}
+
+{% block content %}
+
+<br>
+<h2 class="header">Add new employee</h2>
+<br>
+<main class="d-flex flex-column justify-content-center align-items-center">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+
+    <div class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            <div class="form-group col-12">
+                <label for="inputEmptName">First name:</label>
+                {{ form.first_name(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Provide new employee first name.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmpName">Last name:</label>
+                {{ form.last_name(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Provide new employee last name.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmptEmail">Email:</label>
+                {{ form.email(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Provide new employee email, unique within a company.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmpDate">Hire date:</label>
+                {{ form.hire_date(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Provide new employee hire date.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmpDep">Department:</label>
+                {{ form.department_name(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Select new employee department.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmpDep">Position:</label>
+                {{ form.position_name(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Select new employee position.</div>
+            </div>
+            <br>
+            <div class="form-group col-12">
+                <label for="inputEmpSalary">Salary:</label>
+                {{ form.salary(class="form-control form-control-lg") }}
+                        <div class="form-text EmpHelp">Provide new employee salary.</div>
+            </div>
+            <br>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+
+
+
+</main>
+{% endblock %}
