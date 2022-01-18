@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from department_app import app
 
 client = app.test_client()

@@ -10,8 +10,8 @@ from flask_restful import Api
 from department_app.configuration import Configuration
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from sqlalchemy_utils import database_exists, create_database
 from flask_migrate import Migrate
+from sqlalchemy_utils import database_exists, create_database
 
 
 logger = logging.getLogger(__name__)
@@ -42,11 +42,8 @@ from department_app.models import position
 from department_app.models import employee
 from department_app.models import department
 
-if not database_exists(Configuration.SQLALCHEMY_DATABASE_URI):
-    create_database(Configuration.SQLALCHEMY_DATABASE_URI)
-    db.create_all()
-
-db.create_all()
+# db.drop_all()
+# db.create_all()
 # from department_app.populate import Populate
 # Populate.populate()
 
