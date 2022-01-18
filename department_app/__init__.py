@@ -32,8 +32,8 @@ logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
 app = Flask(__name__)
-#app.config.from_object(TestingConfiguration)
-app.config.from_object(Configuration)
+app.config.from_object(TestingConfiguration)
+#app.config.from_object(Configuration)
 
 api = Api(app)
 db = SQLAlchemy(app)
