@@ -1,4 +1,6 @@
-"""[summary]"""
+"""
+Populates created database with the information.
+"""
 
 from datetime import date
 from department_app import db

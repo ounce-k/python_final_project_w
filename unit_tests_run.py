@@ -1,4 +1,6 @@
-"""[summary]"""
+"""
+Module initializes tests.
+"""
 import unittest
 
 from flask import Flask

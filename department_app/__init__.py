@@ -1,5 +1,7 @@
-"""[summary]"""
-
+"""
+Initializes web application and web service.
+"""
+# pylint: disable=wrong-import-position
 import logging
 import sys
 
@@ -16,7 +18,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.handlers.clear()
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 file_handler = logging.FileHandler('logFile.log', mode='w')
 file_handler.setFormatter(formatter)
@@ -35,27 +38,22 @@ app.config.from_object(Configuration)
 api = Api(app)
 db = SQLAlchemy(app)
 
-from department_app.models import department
-from department_app.models import employee
 from department_app.models import position
-
+from department_app.models import employee
+from department_app.models import department
 
 if not database_exists(Configuration.SQLALCHEMY_DATABASE_URI):
     create_database(Configuration.SQLALCHEMY_DATABASE_URI)
     db.create_all()
-    
-db.drop_all()
 
-from department_app.populate import Populate
 db.create_all()
-# Populate.populate() #use or not?
+# from department_app.populate import Populate
+# Populate.populate()
 
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
 
-
 from department_app.rest import initialize_api
 initialize_api()
-
 from department_app import views
 app.register_blueprint(views.m_bp)

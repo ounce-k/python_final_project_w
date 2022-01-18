@@ -14,7 +14,7 @@ databese = os.environ.get('MYSQL_DATABASE')
 
 class Configuration:
     """
-    Class for configuration.
+    Class for app configuration.
     """
     DEBUG = True
     SECRET_KEY = secrets.token_hex(16)
@@ -23,6 +23,7 @@ class Configuration:
 
 class TestingConfiguration:
     """
+    Class for app testing configuration.
     """
     TESTING = True
     SECRET_KEY = secrets.token_hex(16)

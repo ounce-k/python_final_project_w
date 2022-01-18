@@ -1,11 +1,16 @@
-"""[summary]"""
+"""
+Module defines Employee class, employee model that represents employee
+"""
 
 from sqlalchemy.orm import backref
 from department_app import db
 
 
 class Employee(db.Model):
-
+    """
+    Employee class object represents employee table in database.
+    """
+    # pylint: disable=too-few-public-methods
     __tablename__ = 'employee'
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(64), nullable=False)

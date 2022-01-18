@@ -1,9 +1,14 @@
+"""
+Employees REST API, module defines:
+1. Employee class that is employee API class
+2. EmployeeList class that is employees list API class
+3. EmployeeSearchList class that is employee search API class
+"""
 from datetime import datetime
-from os import stat
+
 from flask import request
 from flask.helpers import make_response
 from sqlalchemy.util.langhelpers import decorator
-from department_app.models import department
 from flask_restful import Resource, abort
 
 from department_app.shemas.employee import EmployeeSchema
@@ -21,9 +26,20 @@ employee_list_schema = EmployeeSchema(many=True)
 
 
 class Employee(Resource):
-
+    """
+    REST API for Employee model.
+    Can be accessed by url /api/employees/<employee_id>.
+    Includes GET, PUT, DELETE methods.
+    """
     @staticmethod
     def get(employee_id):
+        """
+        GET method for employee.
+        Args:
+            employee_id (int): employee id
+        Returns:
+            json representation of employee and status code or error message and status code
+        """
         employee = employee_service.get_emp_by_id(employee_id)
 
         if not employee:
@@ -34,6 +50,13 @@ class Employee(Resource):
 
     @staticmethod
     def put(employee_id):
+        """
+        PUT method for employee.
+        Args:
+            employee_id (int): employee id
+        Returns:
+            json representation of updated employee and status code or error message and status code
+        """
         employee = employee_service.get_emp_by_id(employee_id)
 
         if not employee:
@@ -95,6 +118,13 @@ class Employee(Resource):
 
     @staticmethod
     def delete(employee_id):
+        """
+        DELETE method for employee.
+        Args:
+            employee_id (int): employee id
+        Returns:
+            message and status code
+        """
         employee = employee_service.get_emp_by_id(employee_id)
 
         if not employee:
@@ -109,14 +139,28 @@ class Employee(Resource):
 
 
 class EmployeeList(Resource):
-
+    """
+    REST API for EmployeeList model.
+    Can be accessed by url /api/employees/.
+    Includes GET, POST methods.
+    """
     @staticmethod
     def get():
+        """
+        GET method for employees list.
+        Returns:
+            json representation of employees list and status code or error message and status code
+        """
         employees = employee_service.get_all_emp()
         return employee_list_schema.dump(employees), 200
 
     @staticmethod
     def post():
+        """
+        POST method for employees list.
+        Returns:
+            json representation of created employee and status code or error message and status code
+        """
         first_name = request.json.get('first_name')
         last_name = request.json.get('last_name')
         email = request.json.get('email')
@@ -166,9 +210,18 @@ class EmployeeList(Resource):
 
 
 class EmployeeSearchList(Resource):
-
+    """
+    REST API for EmployeeSearchList model.
+    Can be accessed by url /api/employees/search.
+    Includes GET method.
+    """
     @staticmethod
     def get():
+        """
+        GET method for employees list, that were hired between provided dates.
+        Returns:
+            json representation of employees list and status code or error message and status code
+        """
         date_to = request.json.get('date_to')
         date_from = request.json.get('date_from')
 

@@ -1,5 +1,8 @@
-
-from os import stat
+"""
+Departments REST API, module defines:
+1. Department class that is department API class
+2. DepartmentList class that is departments list API class
+"""
 from flask import request
 from flask.helpers import make_response
 from flask_restful import Resource, abort
@@ -13,11 +16,21 @@ department_schema = DepartmentSchema()
 department_list_schema = DepartmentSchema(many=True)
 
 
-
 class Department(Resource):
-
+    """
+    REST API for Department model.
+    Can be accessed by url /api/departments/<department_id>.
+    Includes GET, PUT, DELETE methods.
+    """
     @staticmethod
     def get(department_id):
+        """
+        GET method for department.
+        Args:
+            department_id (int): department id
+        Returns:
+            json representation of department and status code or error message and status code
+        """
         try:
             department = department_service.get_dep_by_id(department_id)
             return department_schema.dump(department), 200
@@ -28,6 +41,13 @@ class Department(Resource):
 
     @staticmethod
     def put(department_id):
+        """
+        PUT method for department.
+        Args:
+            department_id (int): department id
+        Returns:
+            json representation of updated department and status code or error message and status code
+        """
         department = department_service.get_dep_by_id(department_id)
         if not department:
             logger.info(
@@ -51,13 +71,20 @@ class Department(Resource):
 
     @staticmethod
     def delete(department_id):
+        """
+        DELETE method for department.
+        Args:
+            department_id (int): department id
+        Returns:
+            message and status code
+        """
         department = department_service.get_dep_by_id(department_id)
-        
+
         if not department:
             logger.info(
                 f'Failed to find department with the id: {department_id}')
             abort(404, description='No department with provided id has been found')
-  
+
         name = department.name
         department_service.delete(department_id)
 
@@ -65,15 +92,30 @@ class Department(Resource):
             f'Department under the name "{name}" was successfully deleted')
         return make_response({'message': 'Department has been successfully deleted'}, 200)
 
-class DepartmentList(Resource):
 
+class DepartmentList(Resource):
+    """
+    REST API for DepartmentList model.
+    Can be accessed by url /api/departments/.
+    Includes GET, POST methods.
+    """
     @staticmethod
     def get():
+        """
+        GET method for departments list.
+        Returns:
+            json representation of departments list and status code or error message and status code
+        """
         departments = department_service.get_all_dep()
         return department_list_schema.dump(departments), 200
 
     @staticmethod
     def post():
+        """
+        POST method for department list.
+        Returns:
+            json representation of created department and status code or error message and status code
+        """
         name = request.json.get('name')
 
         if not name:
