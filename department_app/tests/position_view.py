@@ -14,7 +14,7 @@ class TestPositionView(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
     
     def test_delete_position(self):
-        res = client.get('/positions/delete/1')
+        res = client.get('/positions/delete/5')
         self.assertEqual(res.status_code, 302)
 
     def test_get_position(self):

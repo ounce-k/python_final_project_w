@@ -14,5 +14,5 @@ class TestEmployeeView(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
     
     def test_delete_employee(self):
-        res = client.get('/employees/delete/1')
+        res = client.get('/employees/delete/6')
         self.assertEqual(res.status_code, 302)

@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import patch
 from department_app import app
 
 client = app.test_client()
@@ -15,7 +14,7 @@ class TestDepartmentView(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
     
     def test_delete_department(self):
-        res = client.get('/departments/delete/1')
+        res = client.get('/departments/delete/5')
         self.assertEqual(res.status_code, 302)
 
     def test_get_department(self):

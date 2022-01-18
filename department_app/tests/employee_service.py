@@ -10,6 +10,17 @@ employee_service = EmployeeService()
 
 class TestEmployeeService(unittest.TestCase):
     
+    def testEmployees(self):
+        self.test_get_all()
+        self.test_get_emp_by_id()
+        self.test_get_by_first_name()
+        self.test_get_by_last_name()
+        self.test_get_by_email()
+        self.test_add_emp()
+        self.test_save_changes()
+        self.test_get_emp_by_hire_date()
+        self.test_delete_emp()
+        
     def test_get_all(self):
         self.assertEqual(4, len(employee_service.get_all_emp()))
     
@@ -29,18 +40,14 @@ class TestEmployeeService(unittest.TestCase):
         employee_service.add_emp('Betty', 'Brown', date(2021, 9, 5), 2000, 'abc5@example.com', DepartmentService.get_dep_by_id(1).name, PositionService.get_pos_by_id(1).name)
         self.assertEqual(5, Employee.query.count())
     
-    def test_delete_emp(self):
-        employee_service.delete(4)
-        self.assertEqual(4, len(employee_service.get_all_emp()))
-    
     def test_save_changes(self):
-        updated_emp = employee_service.get_emp_by_id(1)
+        updated_emp = employee_service.get_emp_by_id(5)
         updated_emp.first_name = 'Harry'
         updated_emp.last_name = 'Smith'
         updated_emp.salary = 1234
         updated_emp.hire_date = date(2019, 8, 3)
         employee_service.save_changes()
-        updated = employee_service.get_emp_by_id(1)
+        updated = employee_service.get_emp_by_id(5)
         self.assertEqual('Harry', updated.first_name)
         self.assertEqual('Smith', updated.last_name)
         self.assertEqual(1234, updated.salary)
@@ -48,3 +55,7 @@ class TestEmployeeService(unittest.TestCase):
     
     def test_get_emp_by_hire_date(self):
         self.assertEqual(date(2011, 5, 21), employee_service.get_emp_by_id(1).hire_date)
+    
+    def test_delete_emp(self):
+        employee_service.delete(5)
+        self.assertEqual(4, len(employee_service.get_all_emp()))

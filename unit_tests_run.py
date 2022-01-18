@@ -22,12 +22,12 @@ from department_app.tests.employees_view import TestEmployeeView
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestDepartmentService))
-    suite.addTest(unittest.makeSuite(TestPositionService))
-    suite.addTests(unittest.makeSuite(TestEmployeeService))
-    suite.addTests(unittest.makeSuite(TestDepartmentView))
-    suite.addTests(unittest.makeSuite(TestPositionView))
-    suite.addTests(unittest.makeSuite(TestEmployeeView))
+    suite.addTest(TestDepartmentService('testDepartments'))
+    suite.addTest(TestPositionService('testPositions'))
+    suite.addTest(TestEmployeeService('testEmployees'))
+    suite.addTest(unittest.makeSuite(TestDepartmentView))
+    suite.addTest(unittest.makeSuite(TestPositionView))
+    suite.addTest(unittest.makeSuite(TestEmployeeView))
     return suite
 
 if __name__ == '__main__':
@@ -40,8 +40,6 @@ if __name__ == '__main__':
 
     app_context = app.app_context()
     app_context.push()
-    
-    db.create_all()
     
     Populate.populate()
     
