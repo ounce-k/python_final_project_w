@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.9"
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - pylint department_app
+  - coverage run unit_tests_run.py
+  - coverage report
+
+after_success:
+  - coveralls
