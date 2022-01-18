@@ -1,4 +1,3 @@
-
 import unittest
 from department_app import app
 
